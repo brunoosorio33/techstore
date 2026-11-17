@@ -105,7 +105,7 @@ const deleteProduct = async (req, res, next) => {
             data: deletedProduct,
         });
     } catch (error) {
-        
+    next(error);
     }
 };
 
