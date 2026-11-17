@@ -85,4 +85,26 @@ const updateProduct = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+};
+
+// DELETE api/produts:id elimina el producto y devuele el documento eliminado.
+
+const deleteProduct = async (req, res, next) => {
+    try {
+        const deleteProduct = await Product.findByIdAndDelete(req.params.id);
+        if(!deleteProduct){
+            return res.status(404).json({
+            success: false,
+            message: "No se pudo eliminar: Producto no encontrado"
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Producto eliminado correctamente",
+            data: deleteProduct,
+        });
+    } catch (error) {
+        
+    }
 }
