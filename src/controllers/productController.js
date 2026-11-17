@@ -60,3 +60,29 @@ const createProduct = async (req, res, next) => {
         next(error);
     }
 };
+
+// PUT api /product/:id actualiza los campos enviados y devuelve el documento nuevo.
+
+const updateProduct = async (req, res, next) => {
+    try {
+        const updateProduct = await Product.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true, runValidator: true}
+            // Devuelve el objeto actualizado y runValidator aplica validaciones al esquema.
+        )
+        if(!updateProduct){
+            return res.status(404).json ({
+                success: false,
+                message: "No se actualizar: Producto no encontrado",
+            })
+        }
+        res.status(200).json({
+            success: true,
+            message: "Producto acutalizado correctamente",
+            data: updateProduct
+        })
+    } catch (error) {
+        next(error);
+    }
+}
