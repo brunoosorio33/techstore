@@ -20,8 +20,8 @@ const getAllProducts = async (req, res, next) => {
     }
 };
 
-// GET /api/products/:id
-// Obtener un producto por su identificador
+// GET /api/products/:id busca un producto por su idenificador
+// detalle de un producto
 
 const getProductById = async (req, res, next) => {
     try {
@@ -37,6 +37,23 @@ const getProductById = async (req, res, next) => {
         res.status(200).json({
             success: true,
             data: product
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+// POST / api / products crea un producto con os datos enviados en el cuerpo de JSON.
+
+const createProduct = async (req, res, next) => {
+    try {
+        const newProduct = await Product.create(req.body);
+
+        res.status(200).json({
+            success: true,
+            message: "Product creado con éxito",
+            data: newProduct
         });
 
     } catch (error) {
