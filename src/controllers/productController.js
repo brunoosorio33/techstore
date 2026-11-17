@@ -50,7 +50,7 @@ const createProduct = async (req, res, next) => {
     try {
         const newProduct = await Product.create(req.body);
 
-        res.status(200).json({
+        res.status(201).json({
             success: true,
             message: "Product creado con éxito",
             data: newProduct
@@ -65,13 +65,13 @@ const createProduct = async (req, res, next) => {
 
 const updateProduct = async (req, res, next) => {
     try {
-        const updateProduct = await Product.findByIdAndUpdate(
+        const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
             req.body,
             {new: true, runValidator: true}
             // Devuelve el objeto actualizado y runValidator aplica validaciones al esquema.
         )
-        if(!updateProduct){
+        if(!updatedProduct){
             return res.status(404).json ({
                 success: false,
                 message: "No se actualizar: Producto no encontrado",
@@ -80,7 +80,7 @@ const updateProduct = async (req, res, next) => {
         res.status(200).json({
             success: true,
             message: "Producto acutalizado correctamente",
-            data: updateProduct
+            data: updatedProduct
         })
     } catch (error) {
         next(error);
@@ -91,8 +91,8 @@ const updateProduct = async (req, res, next) => {
 
 const deleteProduct = async (req, res, next) => {
     try {
-        const deleteProduct = await Product.findByIdAndDelete(req.params.id);
-        if(!deleteProduct){
+        const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+        if(!deletedProduct){
             return res.status(404).json({
             success: false,
             message: "No se pudo eliminar: Producto no encontrado"
@@ -102,9 +102,20 @@ const deleteProduct = async (req, res, next) => {
         res.status(200).json({
             success: true,
             message: "Producto eliminado correctamente",
-            data: deleteProduct,
+            data: deletedProduct,
         });
     } catch (error) {
         
     }
+};
+
+
+// Exportaciones con nombre: el router importa explicitamente cada controlador que utiliza.
+
+export {
+    getAllProducts,
+    getProductById,
+    createProduct,
+    updateProduct,
+    deleteProduct
 }
