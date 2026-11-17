@@ -20,6 +20,11 @@ const getAllProducts = async (req,res, next) => {
 
     } catch (error) {
         next(error);
-        ∫
     }
-}
+};
+
+//GET api/products:id busca un producto pro su identificador
+// detalle de un producto
+
+const getProductById
+
