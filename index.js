@@ -1,9 +1,13 @@
+
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
 import connectDB from "./src/config/db.js";
+
 import productRoutes from "./src/routes/productRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+
 import {
     notFound,
     errorHandler
@@ -11,6 +15,7 @@ import {
 
 const app = express();
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
@@ -30,13 +35,15 @@ app.get("/", (req, res) => {
         success: true,
         message: "API RESTful operativa y conectada a Atlas DB",
         endpoints: {
-            products: "/api/products"
+            products: "/api/products",
+            users: "/api/users"
         }
     });
 });
 
-// Rutas de productos
+// Rutas de productos y usuarios
 app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
 
 // Gestión de errores
 app.use(notFound);
