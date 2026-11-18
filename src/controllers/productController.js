@@ -54,28 +54,36 @@ const createProduct = async (req, res, next) => {
     }
 };
 
+
 const updateProduct = async (req, res, next) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
             req.body,
-            {new: true, runValidator: true}
-        )
-        if(!updatedProduct){
-            return res.status(404).json ({
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({
                 success: false,
-                message: "No se actualizar: Producto no encontrado",
-            })
+                message: "Producto no encontrado"
+            });
         }
+
         res.status(200).json({
             success: true,
-            message: "Producto acutalizado correctamente",
+            message: "Producto actualizado correctamente",
             data: updatedProduct
-        })
+        });
+
     } catch (error) {
         next(error);
     }
 };
+
 
 
 const deleteProduct = async (req, res, next) => {
