@@ -1,5 +1,4 @@
 import Product from "../models/Product.js";
-import User from "../models/User.js";
 
 
 const getAllProducts = async (req, res, next) => {
