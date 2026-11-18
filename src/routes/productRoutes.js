@@ -10,7 +10,6 @@ import {
 const router = express.Router();
 
 
-// Al montarse en api/products, "/" corresponde a /api/products y "/:id" captura el identificador enviado en la url
 router.get("/", getAllProducts);
 router.get("/:", getProductById);
 router.post("/", createProduct);
