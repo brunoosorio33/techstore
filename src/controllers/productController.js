@@ -1,7 +1,5 @@
 import Product from "../models/Product.js";
 
-
-
 const getAllProducts = async (req, res, next) => {
     try {
         const { category, search } = req.query;
